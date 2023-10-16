@@ -7,7 +7,7 @@ public class PjMovimiento : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
-
+    public bool HasItem { get; set; } = false;
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;

@@ -62,7 +62,6 @@ public class Raccoon : MonoBehaviour {
 
     private void Skill1() {
         if(isHolding) {
-            // Make it so the raccoon leaves the object in hand in front of him
             isHolding = false;
             objectHolding.isKinematic = false;
             objectHolding.transform.position = transform.position + new Vector3(1f, 0f, 0f);
@@ -74,7 +73,6 @@ public class Raccoon : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 1f);
             if(hit.collider != null) {
                 Debug.Log(hit.collider.gameObject.name);
-                // Make it so the object loses its collision and is in front of the raccoon
                 hit.collider.gameObject.transform.position = transform.position + new Vector3(1f, 0f, 0f);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
                 objectHolding = hit.collider.gameObject.GetComponent<Rigidbody2D>();

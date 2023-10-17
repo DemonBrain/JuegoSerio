@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Raccoon : MonoBehaviour {
 
-    private bool isHolding = false;
+    private Rigidbody2D objectHolding;
+    private bool isHolding;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float runningSpeed = 15f;
@@ -17,6 +18,8 @@ public class Raccoon : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        isHolding = false;
+        objectHolding = null;
     }
 
     // Update is called once per frame
@@ -59,8 +62,11 @@ public class Raccoon : MonoBehaviour {
 
     private void Skill1() {
         if(isHolding) {
-            // Throw
+            // Make it so the raccoon leaves the object in hand in front of him
             isHolding = false;
+            objectHolding.isKinematic = false;
+            objectHolding.transform.position = transform.position + new Vector3(1f, 0f, 0f);
+            objectHolding = null;
         } else {
             // Pick up
             isHolding = true;
@@ -68,6 +74,10 @@ public class Raccoon : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 1f);
             if(hit.collider != null) {
                 Debug.Log(hit.collider.gameObject.name);
+                // Make it so the object loses its collision and is in front of the raccoon
+                hit.collider.gameObject.transform.position = transform.position + new Vector3(1f, 0f, 0f);
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                objectHolding = hit.collider.gameObject.GetComponent<Rigidbody2D>();
             }
         }
     }

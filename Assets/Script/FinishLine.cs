@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
+    public float delayBeforeLoading = 2.0f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -11,14 +13,15 @@ public class FinishLine : MonoBehaviour
             PjMovimiento player = collision.GetComponent<PjMovimiento>();
             if (player != null && player.HasItem)
             {
-                LoadNextLevel();
+                StartCoroutine(LoadNextLevelAfterDelay());
             }
         }
     }
-    void LoadNextLevel()
+    IEnumerator LoadNextLevelAfterDelay()
     {
-        Debug.Log("You've completed the level!");
-        /*int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        yield return new WaitForSeconds(delayBeforeLoading);
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
@@ -30,6 +33,6 @@ public class FinishLine : MonoBehaviour
             Debug.Log("You've completed the last level!");
             // Load main menu or end screen, for example:
             // SceneManager.LoadScene("MainMenu");
-        }*/
+        }
     }
 }

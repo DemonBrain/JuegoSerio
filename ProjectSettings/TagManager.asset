@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tornado
+  - Monedas
+  - Escalera
+  - Llave
+  - Cofre
   layers:
   - Default
   - TransparentFX
@@ -38,6 +43,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Trasfondo
+    uniqueID: 152126381
+    locked: 0
+  - name: Fondo
+    uniqueID: 1782223147
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Terreno
+    uniqueID: 3515173371
     locked: 0

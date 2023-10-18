@@ -5,6 +5,7 @@ using UnityEngine;
 public class Raccoon : MonoBehaviour {
 
     private bool isHolding = false;
+    private Animator anim;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float runningSpeed = 15f;
@@ -13,26 +14,28 @@ public class Raccoon : MonoBehaviour {
 
     private Rigidbody2D rb;
     private BoxCollider2D bc;
+    private SpriteRenderer sr;
+    private float velocityX = 0f;
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update() {
         
-        if(Input.GetAxisRaw("Fire1") == 1) {
-            Skill1();
+        if(Input.GetAxisRaw("Fire2") == 1) {
+            //Skill1();
         }
 
-        bool isCrouching = Input.GetAxisRaw("Fire2") == 1;
+        bool isCrouching = Input.GetAxisRaw("Fire1") == 1;
 
         float strength = Input.GetAxisRaw("Fire3") == 1 && !isCrouching ? runningSpeed : speed;
 
         float dirX = Input.GetAxisRaw("Horizontal") * strength;
-
-        float velocityX;
 
         if(dirX > 0)
             velocityX = Mathf.Min(rb.velocity.x + dirX / steps, dirX);
@@ -41,20 +44,36 @@ public class Raccoon : MonoBehaviour {
             velocityX = Mathf.Max(rb.velocity.x + dirX / steps, dirX);
 
         else
-            velocityX = rb.velocity.x > 0 ? rb.velocity.x - speed / steps : rb.velocity.x + speed / steps;
+            velocityX = 0;
 
         rb.velocity = new Vector2(velocityX, rb.velocity.y);
 
         if (Input.GetAxisRaw("Jump") == 1 && Mathf.Abs(rb.velocity.y) < 0.001f) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce + strength / 5f);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
         if (isCrouching) {
             bc.size = new Vector2(1f, 0.5f);
+            transform.localScale = new Vector3(1f, 0.5f, 1f);
         } else {
             bc.size = new Vector2(1f, 1f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
+        UpdateAnimationState();
+
+    }
+
+    private void UpdateAnimationState() {
+        if(velocityX > 0f) {
+            anim.SetBool("walking", true);
+            sr.flipX = false;
+        } else if(velocityX < 0f) {
+            anim.SetBool("walking", true);
+            sr.flipX = true;
+        } else {
+            anim.SetBool("walking", false);
+        }
     }
 
     private void Skill1() {

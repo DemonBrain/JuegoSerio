@@ -19,7 +19,8 @@ public class Raccoon : MonoBehaviour {
         Walking,
         Jumping,
         Falling,
-        Crouching
+        Crouching,
+        Landing
     }
 
     private Rigidbody2D rb;
@@ -48,6 +49,8 @@ public class Raccoon : MonoBehaviour {
         isCrouching = Input.GetAxisRaw("Fire1") == 1;
 
         float strength = Input.GetAxisRaw("Fire3") == 1 && !isCrouching ? runningSpeed : speed;
+
+        strength = isCrouching ? strength / 2 : strength;
 
         float dirX = Input.GetAxisRaw("Horizontal") * strength;
 

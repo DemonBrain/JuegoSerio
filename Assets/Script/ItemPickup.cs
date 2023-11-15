@@ -10,6 +10,7 @@ public class ItemPickup : MonoBehaviour
             if (player != null)
             {
                 player.HasItem = true;
+                ItemCollectionTracker.Instance.AddSeed(); //Notify the collection tracker
                 Destroy(gameObject);
             }
         }

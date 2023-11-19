@@ -18,6 +18,7 @@ public class Parrot : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float gravity = 7f;
 
     public Text velText;
 
@@ -48,6 +49,7 @@ public class Parrot : MonoBehaviour
         velText.text = "Velocidad Y: " + rb.velocity.y.ToString(); 
 
         UpdateAnimationState();
+        UpdateGravity();
     }
 
     private void UpdateAnimationState(){
@@ -100,5 +102,18 @@ public class Parrot : MonoBehaviour
     
     private bool IsGrounded(){
        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+    
+    private void UpdateGravity(){
+        if (rb.velocity.y< jumpForce*0.7 && rb.velocity.y > -0.2*jumpForce && IsGrounded()==false){
+            rb.gravityScale = 1f;
+        }
+        else if (rb.velocity.y < -0.5*jumpForce && IsGrounded()==false){
+            rb.gravityScale = 2f;
+        }
+
+        else{
+            rb.gravityScale = gravity;
+        }
     }
 }

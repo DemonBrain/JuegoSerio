@@ -16,7 +16,13 @@ public class PLife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.gameObject.CompareTag("Trampa")){
-            Die();
+            HealthManager.health--;
+            if(HealthManager.health<=0){
+                Die();
+            }
+            else{
+                anim.SetTrigger("hurting");
+            }
         }
     }
 

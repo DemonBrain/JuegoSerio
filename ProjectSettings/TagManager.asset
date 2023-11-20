@@ -9,11 +9,12 @@ TagManager:
   - Escalera
   - Llave
   - Cofre
+  - Trampa
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - objetos
   - Water
   - UI
   - Ground

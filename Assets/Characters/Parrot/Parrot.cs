@@ -18,10 +18,11 @@ public class Parrot : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float gravity = 7f;
 
     public Text velText;
 
-    private enum MovementState {idle, running, jumping, falling, flying, landing};
+    private enum MovementState {idle, running, jumping, falling, flying};
     private MovementState state = MovementState.idle;
 
     // Start is called before the first frame update<
@@ -44,46 +45,75 @@ public class Parrot : MonoBehaviour
 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }         
+
         velText.text = "Velocidad Y: " + rb.velocity.y.ToString(); 
+
         UpdateAnimationState();
+        UpdateGravity();
     }
 
     private void UpdateAnimationState(){
         MovementState state;
-        if (dirX > 0f){
+        if (dirX > 0f && IsGrounded()==true ){
             state = MovementState.running;
             sprite.flipX = false;
         }
-        else if (dirX < 0f){
+        else if (dirX < 0f && IsGrounded()==true){
             state = MovementState.running;
             sprite.flipX = true;
         }
 
+
         else if (rb.velocity.y > jumpForce*0.7){
             state = MovementState.jumping;
+            Flip();
         }
 
         else if (rb.velocity.y< jumpForce*0.7 && rb.velocity.y > -0.5*jumpForce && IsGrounded()==false){
             state = MovementState.flying;
+            Flip();
         }
         
-        else if (rb.velocity.y < -0.5*jumpForce ){
+        else if (rb.velocity.y < -0.5*jumpForce && IsGrounded()==false){
             state = MovementState.falling;
+            Flip();
+        }
+        else if (rb.velocity.y < 0 && IsGrounded()==false){
+            state = MovementState.falling;
+            Flip();
         }
 
-        else if (rb.velocity.y < 0 && IsGrounded()==true){
-            state = MovementState.landing;
-        }
-        else {
+        else{
             state = MovementState.idle;
         }
         
         anim.SetInteger("state", (int)state);
     }
 
-    
+    private void Flip(){
+        if (dirX > 0f){
+            sprite.flipX = false;
+        }
+
+        else if (dirX < 0f){
+            sprite.flipX = true;
+        }
+    }
     
     private bool IsGrounded(){
        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+    
+    private void UpdateGravity(){
+        if (rb.velocity.y< jumpForce*0.7 && rb.velocity.y > -0.2*jumpForce && IsGrounded()==false){
+            rb.gravityScale = 1f;
+        }
+        else if (rb.velocity.y < -0.5*jumpForce && IsGrounded()==false){
+            rb.gravityScale = 2f;
+        }
+
+        else{
+            rb.gravityScale = gravity;
+        }
     }
 }

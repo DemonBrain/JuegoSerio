@@ -10,8 +10,13 @@ public class FinishLine : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PjMovimiento player = collision.GetComponent<PjMovimiento>();
-            if (player != null && player.HasItem)
+            Parrot parrot = collision.GetComponent<Parrot>();
+            Raccoon raccoon = collision.GetComponent<Raccoon>();
+            if (parrot != null && parrot.HasItem)
+            {
+                StartCoroutine(LoadNextLevelAfterDelay());
+            }
+            else if (raccoon != null && raccoon.HasItem)
             {
                 StartCoroutine(LoadNextLevelAfterDelay());
             }

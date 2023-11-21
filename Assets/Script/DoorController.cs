@@ -4,7 +4,7 @@ public class DoorController : MonoBehaviour
 {
     public bool isOpen = false; // Initial state of the door
     public GameObject doorObject; // The actual door object that will disappear
-
+    
     public void ToggleDoor()
     {
         isOpen = !isOpen;
@@ -22,11 +22,13 @@ public class DoorController : MonoBehaviour
     void OpenDoor()
     {
         doorObject.SetActive(false); // Makes the door disappear
+        
     }
 
     void CloseDoor()
     {
         doorObject.SetActive(true); // Makes the door reappear
+       
     }
 }
 

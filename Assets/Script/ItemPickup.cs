@@ -6,11 +6,18 @@ public class ItemPickup : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PjMovimiento player = collision.GetComponent<PjMovimiento>();
-            if (player != null)
+            Parrot parrot = collision.GetComponent<Parrot>();
+            Raccoon raccoon = collision.GetComponent<Raccoon>();
+            if (parrot != null)
             {
-                player.HasItem = true;
-                ItemCollectionTracker.Instance.AddSeed(); //Notify the collection tracker
+                parrot.HasItem = true;
+                ItemCollectionTracker.Instance.AddSeed(); // Notify the collection tracker
+                Destroy(gameObject);
+            }
+            else if (raccoon != null)
+            {
+                raccoon.HasItem = true;
+                ItemCollectionTracker.Instance.AddSeed(); // Notify the collection tracker
                 Destroy(gameObject);
             }
         }

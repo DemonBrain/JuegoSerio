@@ -8,6 +8,7 @@ public class Raccoon : MonoBehaviour {
     private Rigidbody2D objectHolding;
     private bool canDash = true;
     private bool isDashing = false;
+    public bool HasItem { get; set; } = false;
 
     private bool isCrouching = false;
     [SerializeField] private float jumpForce = 3f;
@@ -52,13 +53,16 @@ public class Raccoon : MonoBehaviour {
             return;
         }
 
-        isCrouching = Input.GetAxisRaw("Fire1") == 1;
+        if(IsGrounded())
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
+
+        isCrouching = Input.GetAxisRaw("Fire1P2") == 1;
 
         float strength = speed;
 
         strength = isCrouching ? strength / 2 : strength;
 
-        float dirX = Input.GetAxisRaw("Horizontal") * strength;
+        float dirX = Input.GetAxisRaw("Horizontal2") * strength;
 
         if(dirX > 0)
             velocityX = Mathf.Min(rb.velocity.x + dirX / steps, dirX);
@@ -71,11 +75,11 @@ public class Raccoon : MonoBehaviour {
 
         rb.velocity = new Vector2(velocityX, rb.velocity.y);
 
-        if (Input.GetAxisRaw("Jump") == 1 && IsGrounded()) {
+        if (Input.GetAxisRaw("Jump2") == 1 && IsGrounded()) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetAxisRaw("Fire3") == 1 && canDash) {
+        if (Input.GetAxisRaw("Fire3P2") == 1 && canDash) {
             StartCoroutine(Dash());
         }
         
@@ -95,6 +99,7 @@ public class Raccoon : MonoBehaviour {
         } else {
             state = MovementState.Idle;
         }
+
 
         if(isCrouching) {
             state = MovementState.Crouching;
@@ -118,6 +123,7 @@ public class Raccoon : MonoBehaviour {
             state = MovementState.Dashing;
         }
 
+        Debug.Log((int)state);
         anim.SetInteger("movementState", (int)state);
     }
 

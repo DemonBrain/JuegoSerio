@@ -7,13 +7,9 @@ public class TutorialScreen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            LoadGameScene(); 
+            SceneManager.LoadScene("Historia");
+             
         }
-    }
-
-    private void LoadGameScene()
-    {
-        SceneManager.LoadScene("level 1"); 
     }
 }
 

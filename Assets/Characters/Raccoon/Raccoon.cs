@@ -1,18 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D.IK;
 
 public class Raccoon : MonoBehaviour {
     private bool isHolding = false;
+    private bool justChangedSize = true;
     private Animator anim;
     private Rigidbody2D objectHolding;
+    private bool canDash = true;
+    private bool isDashing = false;
 
     private bool isCrouching = false;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float runningSpeed = 15f;
     [SerializeField] private float steps = 10f;
+    [SerializeField] private float dashingPower = 12f;
+    [SerializeField] private float dashingTime = 0.5f;
+    [SerializeField] private float dashingCooldown = 0.5f;
+    [SerializeField] private TrailRenderer tr;
 
     private enum MovementState {
         Idle,
@@ -20,7 +24,8 @@ public class Raccoon : MonoBehaviour {
         Jumping,
         Falling,
         Crouching,
-        Landing
+        Landing,
+        Dashing
     }
 
     private Rigidbody2D rb;
@@ -42,13 +47,14 @@ public class Raccoon : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         
-        if(Input.GetAxisRaw("Fire2") == 1) {
-            //Skill1();
+        if(isDashing) {
+            UpdateAnimationState();
+            return;
         }
 
         isCrouching = Input.GetAxisRaw("Fire1") == 1;
 
-        float strength = Input.GetAxisRaw("Fire3") == 1 && !isCrouching ? runningSpeed : speed;
+        float strength = speed;
 
         strength = isCrouching ? strength / 2 : strength;
 
@@ -67,6 +73,10 @@ public class Raccoon : MonoBehaviour {
 
         if (Input.GetAxisRaw("Jump") == 1 && IsGrounded()) {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (Input.GetAxisRaw("Fire3") == 1 && canDash) {
+            StartCoroutine(Dash());
         }
         
         UpdateAnimationState();
@@ -98,8 +108,14 @@ public class Raccoon : MonoBehaviour {
 
         if(state == MovementState.Crouching) {
             bc.size = new Vector2(1.177811f, 0.6775999f);
-        }else {
+            justChangedSize = false;
+        }else if(!justChangedSize) {
             bc.size = new Vector2(1.077168f, 0.9459839f);
+            justChangedSize = true;
+        }
+
+        if(isDashing) {
+            state = MovementState.Dashing;
         }
 
         anim.SetInteger("movementState", (int)state);
@@ -127,5 +143,20 @@ public class Raccoon : MonoBehaviour {
                 objectHolding = hit.collider.gameObject.GetComponent<Rigidbody2D>();
             }
         }
+    }
+
+    private IEnumerator Dash() {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(sr.flipX ? -dashingPower : dashingPower, 0f);
+        //tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        //tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }

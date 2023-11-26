@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -6,6 +6,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("colision");
             Parrot parrot = collision.GetComponent<Parrot>();
             Raccoon raccoon = collision.GetComponent<Raccoon>();
             if (parrot != null)

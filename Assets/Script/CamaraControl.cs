@@ -10,9 +10,9 @@ public class CameraController : MonoBehaviour
     public Vector3 offset;
     public float smoothTime = .5f;
 
-    public float minZoom = 158f;
-    public float maxZoom = 120f;
-    public float zoomLimiter = 10f;
+    public float minZoom = 167f;
+    public float maxZoom = 35f;
+    public float zoomLimiter = 5f;
 
     private Vector3 velocity;
     private Camera cam;
@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cam = GetComponent<Camera>();
+        offset = new Vector3(0, 0, -23);
+
     }
 
     void LateUpdate()

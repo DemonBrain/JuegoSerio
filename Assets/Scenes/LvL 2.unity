@@ -753,7 +753,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9029066287930955187, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
@@ -52975,6 +52976,7 @@ GameObject:
   - component: {fileID: 1426938211}
   - component: {fileID: 1426938210}
   - component: {fileID: 1426938209}
+  - component: {fileID: 1426938212}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -53056,6 +53058,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1426938212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426938208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c2b092e2a94b242878c31fd7e9d505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {fileID: 2086434436}
+  offset: {x: 0, y: 0, z: 0}
+  smoothTime: 0.5
+  minZoom: 40
+  maxZoom: 10
+  zoomLimiter: 50
 --- !u!1 &1436437323
 GameObject:
   m_ObjectHideFlags: 0
@@ -84395,7 +84416,7 @@ GameObject:
   - component: {fileID: 2086434438}
   - component: {fileID: 2086434440}
   - component: {fileID: 2086434439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pj
   m_TagString: Player
   m_Icon: {fileID: 0}

@@ -239,7 +239,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1773354389911611882, guid: 868c98228f013184eaf770320f9b88e0, type: 3}
       propertyPath: m_ColliderMask.m_Bits
-      value: 255
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3753623175697443485, guid: 868c98228f013184eaf770320f9b88e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1020,7 +1020,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1773354389911611882, guid: 868c98228f013184eaf770320f9b88e0, type: 3}
       propertyPath: m_ColliderMask.m_Bits
-      value: 255
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3753623175697443485, guid: 868c98228f013184eaf770320f9b88e0, type: 3}
       propertyPath: m_LocalPosition.x

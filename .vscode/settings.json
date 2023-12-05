@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "JuegoSerio2.sln"
+    "dotnet.defaultSolution": "JuegoSerio.sln"
 }

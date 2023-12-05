@@ -6,6 +6,7 @@ public class EscalerasScrip : MonoBehaviour
     private float speed = 8f;
     private bool isLadder;
     private bool isClimbing;
+    private bool justSet = false;
 
     [SerializeField] private Rigidbody2D rb;
 
@@ -25,10 +26,12 @@ public class EscalerasScrip : MonoBehaviour
         {
             rb.gravityScale = 0f;
             rb.velocity = new Vector2(rb.velocity.x, vertical * speed);
+            justSet = false;
         }
-        else
+        else if(!justSet)
         {
             rb.gravityScale = 4f;
+            justSet = true;
         }
     }
 

@@ -7,11 +7,28 @@ public class PLife : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    private bool justDied = false;
+    private float delayBeforeRestarting = 1.0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if(HealthManager.health <= 0)
+        {
+            if(!justDied)
+            {
+                Die();
+                justDied = true;
+                StartCoroutine(RestartLevel());
+            }
+        }
+
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -31,7 +48,9 @@ public class PLife : MonoBehaviour
         anim.SetTrigger("death");
     }
 
-    private void RestartLevel(){
+    IEnumerator RestartLevel()
+    {
+        yield return new WaitForSeconds(delayBeforeRestarting);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using System;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI; // Assign this in the inspector
+    [SerializeField] private GameObject pauseMenuUI; // Assign this in the inspector
 
     private bool isPaused = false;
 
@@ -45,6 +46,11 @@ public class PauseMenu : MonoBehaviour
     public void OpenSettings()
     {
         // Logic to display settings
+    }
+
+    public void exitGame()
+    {
+        Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     public void ExitGame()

@@ -1024,6 +1024,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 30082580420746701, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
+      propertyPath: hearts.Array.data[0]
+      value: 
+      objectReference: {fileID: 1119627090}
+    - target: {fileID: 30082580420746701, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
+      propertyPath: hearts.Array.data[1]
+      value: 
+      objectReference: {fileID: 1119627090}
+    - target: {fileID: 30082580420746701, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
+      propertyPath: hearts.Array.data[2]
+      value: 
+      objectReference: {fileID: 1119627090}
     - target: {fileID: 3804911389432676250, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
       propertyPath: gravity
       value: 9
@@ -1076,6 +1088,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5604716513287975121, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
+      propertyPath: SeedsText
+      value: 
+      objectReference: {fileID: 1791444441}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9029066287930955187, guid: 905a72f31a5a74c5683108f05601590f, type: 3}
@@ -55378,7 +55394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.007843138}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -55387,7 +55403,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 463f341acebf0b0418f97078bcfb3967, type: 3}
-    m_FontSize: 13
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
